@@ -1,0 +1,57 @@
+name: CI for Next.js and AdonisJS
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the code
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # Set up Node.js for Next.js
+    - name: Set up Node.js for Next.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    # Install dependencies for Next.js
+    - name: Install dependencies for Next.js
+      working-directory: ./frontend
+      run: npm install
+
+    # Build Next.js
+    - name: Build Next.js
+      working-directory: ./frontend
+      run: npm run build
+
+    # Set up Node.js for AdonisJS
+    - name: Set up Node.js for AdonisJS
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20'
+
+    # Install dependencies for AdonisJS
+    - name: Install dependencies for AdonisJS
+      working-directory: ./backend
+      run: npm install
+
+    # Run tests for AdonisJS (if you have tests)
+    - name: build AdonisJS 
+      working-directory: ./backend
+      run: npm run build
+
+    # Deploy (if required, can add your own deployment logic here)
+    - name: Deploy to Production
+      if: github.ref == 'refs/heads/main'
+      run: |
+        echo "Deploying application..."
+        # Add deployment commands (e.g., Docker, SSH commands, etc.) 
