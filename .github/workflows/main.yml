@@ -1,5 +1,5 @@
 name: CI for Next.js and AdonisJS
-
+run-name: ${{ github.actor }} is testing🚀
 on:
   push:
     branches:
